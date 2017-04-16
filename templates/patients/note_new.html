@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block Content %}
+
+<ul class="breadcrumb">
+  <li><a href="/profile/home">Home</a></li>
+</li>
+</ul>
+
+<div style="margin-left:40px;">
+    <h2>New post</h2>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+  </div>
+{% endblock %}

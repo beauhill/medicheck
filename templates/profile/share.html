@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+
+{% block Content %}
+<ul class="breadcrumb">
+  <li><a href="/profile/home">Home</a></li>
+  <li><a href="/profile/home">Profiles</a></li>
+  <li class="active"> {{ patient.first_name }} {{ patient.last_name }}</li>
+</ul>
+
+
+ <div  style= "m-left: 250px; float:left; border-radius: .5px;margin-left: 30px; width: 750px;"class="jumbotron">
+  <legend> <h3>  <center> Doctor Transmission </center> </h3> </legend>
+      <center><h3>  {{ patient.first_name}} {{ patient.last_name }} </h3> </center>
+
+      <div  style= "float:left;width: 750px;height:515.5px;"class="jumbotron"><table class="table table-striped table-hover ">
+
+      <legend> <center> Patients </center> </legend>
+      <thead>
+        <tr>
+          <th>Index</th>
+          <th>Name</th>
+          <th> </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for patient in doctors %}
+        <tr class="">
+          <td> {{ forloop.counter }}</td>
+          <td> {{ patient.first_name|title}} {{patient.last_name|title}} </td>
+          <td> {{ patient.gender|title|first }}</td>
+          <td> <a href="{% url 'patient_submit' patient.id %}" class="btn btn-default"> Submit </a> </td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+
+
+
+  {% endblock %}

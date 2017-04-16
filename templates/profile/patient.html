@@ -1,0 +1,173 @@
+
+{% extends "base.html"%}
+
+{% block Content %}
+<ul class="breadcrumb">
+  <li><a href="/profile/home">Home</a></li>
+
+  <li class="active"> {{ patient.first_name }} {{ patient.last_name }}</li>
+</ul>
+
+
+<div style="border: 1px solid red;">
+<div  style= "float:left; border-radius: .5px;margin-left: 30px; width: 750px;"class="jumbotron">
+    <legend><center> Information  </center>    </legend>
+  <h3> {{ patient.first_name }} {{patient.last_name}}</h3>
+
+  <p> {{patient.age}} years old</p>
+  <p> Height: {{patient.height}}, Weight: {{patient.weight}} LBS </p>
+  <p> Ethnicity: {{ patient.ethnicity }} </p>
+  <p> Gender: {{ patient.gender }} </p>
+  <p> Insurance : {{ patient.insurance }} </p>
+  <p><center><a href="{% url 'note_new' %}" class="btn btn-primary btn-lg">Add New</a><a style="margin-left:5px;" href="{% url 'patient_share' patient.id %}" class="btn btn-success btn-lg">Send</a> </center></p>
+
+
+
+
+
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading"><b>Prescriptions</b></div>
+    <div class="panel-body">
+
+{% if per_notes %}
+  {% for note in per_notes %}
+      <a  href="#" class="list-group-item">
+
+
+        <h5 index="{{note.id}}" class="list-group-item-heading"> {{ note.note }} </h5>
+        <p class="list-group-item-text"> {{ note.message }} </p>
+
+      </a>
+    {% endfor %}
+
+    {% else %}
+      <p> No prescriptions </p>
+    {% endif %}
+      </div>
+  </div>
+
+
+
+
+  <div class="panel panel-default">
+  <div class="panel-heading"><b> Allergies </b></div>
+  <div class="panel-body">
+
+{% if all_notes %}
+{% for note in all_notes %}
+
+    <a href="#" class="list-group-item">
+
+      <h5 index="{{note.id}}" class="list-group-item-heading"> {{ note.note }} </h5>
+      <p class="list-group-item-text"> {{ note.message }} </p>
+
+    </a>
+  {% endfor %}
+  {% else %}
+  <p> No Allergies
+  {% endif %}
+  </div>
+</div>
+
+
+<div class="panel panel-default">
+<div class="panel-heading"><b> CT Scan ( Cat Scan ) </b></div>
+<div class="panel-body">
+{% if ct_notes %}
+{% for note in ct_notes %}
+
+    <a href="#" class="list-group-item">
+
+      <h5 index="{{note.id}}" class="list-group-item-heading"> {{ note.note }} </h5>
+      <p class="list-group-item-text"> {{ note.message }} </p>
+
+    </a>
+  {% endfor %}
+  {% else %}
+  <p> No CT uploads
+  {% endif %}
+  </div>
+</div>
+
+
+<div class="panel panel-default">
+<div class="panel-heading"><b> Blood Work </b></div>
+<div class="panel-body">
+{% if bw_notes %}
+{% for note in bw_notes %}
+
+    <a href="#" class="list-group-item">
+
+      <h5 index="{{note.id}}" class="list-group-item-heading"> {{ note.note }} </h5>
+      <p class="list-group-item-text"> {{ note.message }} </p>
+
+    </a>
+  {% endfor %}
+  {% else %}
+  <p> No known blood work
+  {% endif %}
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div  style= "float:left;width: 750px;height:515.5px;"class="jumbotron">
+    <legend><center> Additional Notes  </center></legend>
+    {% for note in add_notes %}
+    <li class="list-group-item">
+      <span class="badge"> {{note.last_modified}}</span>
+    <b> {{note.note}}-</b>  {{  note.message|slice:":100" }}
+    </li>
+    {% endfor %}
+</li>
+</li>
+</div>
+</div>
+
+
+</div>
+
+<div style="display:none;" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+
+      <div class="modal-header">
+
+
+        <button type="button" class="close" data-dismiss="mod al" aria-hidden="true">&times;</button>
+
+
+        <center><legend> Edit Post </legend></center>
+
+    <input id="modal-text" style="color:black;height: 60px;font-size:20px;padding-left:10px;"class="form-control" id="focusedInput" type="text" value="">
+    <input id="modal-msg" style="height: 60px;font-size:20px;padding-left:10px;"class="form-control" id="focusedInput" type="text" value="">
+
+
+      </div>
+      <div id="mbody" class="modal-body">
+        <input id="mit-chan-hidden" type="hidden" name="" value="">
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="mit-chan-delete" type="button" class="btn btn-danger">Delete</button>
+        <button  id="mit-chan-submit" type="button" class="btn btn-primary">Save changes</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  {% endblock %}

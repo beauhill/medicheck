@@ -1,0 +1,26 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    medical_center = models.CharField(max_length=30, blank=True)
+
+
+
+class Patient(models.Model):
+    first_name = models.CharField(max_length=30, blank= True)
+    last_name = models.CharField(max_length=30, blank = True)
+    doctor = models.OneToOneField(User, on_delete=models.CASCADE, primary_key= True)
+    ethnicity = models.CharField(max_length=15)
+    weight = models.CharField(max_length=6)
+    height = models.CharField(max_length=4)
+    gender = models.CharField(max_length=100)
+    age = modells.CharField(max_lenghth=10)
+
+
+class Note(models.Model):
+    patient = models.OneToOneField(Patient, on_delete=models.CASCADE)
+    note = models.CharField(max_length=16)
+    message = models.CharField(max_length=100)
